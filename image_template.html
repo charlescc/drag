@@ -1,0 +1,8 @@
+<div class='accordion-group' >	
+	<header class='group-head' ng-click='toggleList($event)' ng-class='{true:"active"}[showList]'>{{title}}</header>
+	    <ul class='resource-list' ng-show='showList'>
+	       	<li class='resource-item' ng-repeat='image in images' ng-style="{'background-image':'url({{image.url}})'}" ng-mousedown='mousedown($event,$index)' content-tooltip='image.description'>
+	         	<div class='res-name'>{{image.name}}</div>
+	       	</li>
+	    </ul> 
+</div>

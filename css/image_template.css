@@ -1,0 +1,91 @@
+.accordion-group{
+	width: 372px;
+	max-height:600px;
+	
+	overflow: auto;
+}
+.group-head{
+	
+    color: #94959A;
+    -webkit-box-shadow: inset 2px 0 #94959A;
+       -moz-box-shadow: inset 2px 0 #94959A;
+            box-shadow: inset 2px 0 #94959A;
+    cursor: default;
+	height: 100px;
+	width: 100px;
+	margin: 0;
+	
+	border-bottom: 1px solid #B9B3B3;
+    line-height: 70px;
+     
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+	-webkit-box-pack:center;
+	-webkit-justify-content:center;
+	   -moz-box-pack:center;
+	    -ms-flex-pack:center;
+	        justify-content:center;
+	-webkit-box-align:center;
+	-webkit-align-items:center;
+	   -moz-box-align:center;
+	    -ms-flex-align:center;
+	        align-items:center;
+}
+.group-head:hover,.group-head.active{
+	background-color: rgba(68,232,184,0.83);
+	color: white;
+	border-radius: 5px;
+}
+.resource-list{
+	background-color: white;  
+    padding: 0;
+    margin: 0;
+   
+    height:100%;
+    overflow-y: auto;
+    overflow-x:hidden;
+    position:absolute;
+    right:0;
+    top:0;
+    list-style:none;
+    width:272px;
+
+    /*height:600px;*/
+
+}
+/*.resource-list.ng-add,
+.resource-list.ng-remove{
+	transition:5s linear all;
+}
+.resource-list.ng-add{opacity: 0;}
+.resource-list.ng-add-active{opacity: 1}
+.resource-list.ng-remove{opacity: 1}
+.resource-list.ng-remove-active{opacity: 0;}*/
+
+
+.resource-item:hover{
+	background-color: #E9EDF3;
+}
+.resource-item{
+	width: 100%;
+	height: 80px;
+	
+	
+	margin: 0 .5% .5% 0;
+	
+	word-wrap: break-word;
+	
+	background: transparent 15px 50% no-repeat;
+	text-align: center;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	cursor: grab;
+
+}
+.res-name{
+	line-height: 80px;
+}

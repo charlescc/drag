@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app='myModule'>
+  <head>
+    <meta charset='utf-8'></meta>
+    <link href="css/joint.css" rel="stylesheet"/>
+	<link href="css/image_template.css" rel="stylesheet"/>
+    <link href="css/app.css" rel="stylesheet"/>
+    
+     
+  </head>
+  <body ng-controller='myController'>
+  	<div class='loading' ng-show='showLoad'></div>
+    
+      <div class='fixedaccordion'>
+        <accordion>
+          <imageexpander ng-repeat='option in options' image-expander-title='option.title' image-expander-index='$index' image-group='option.images' ></imageexpander>
+        </accordion>
+        <div class='operation-content'>
+        <span class='icon_button' ng-click='preview_json()'>Preview Json</span>
+        <!--<span class='icon_button' ng-click='preview_yaml()'>Preview Yaml</span>-->
+
+        
+        </div>
+      </div>
+      <div class='fixedconfig' ng-submit>
+        <form name='my_params'>
+          <div class='list_title'>{{list_title}}</div>
+          <ul class='my_list'>          
+            <li ng-repeat='param in list' class='params-item'>
+              
+              <input class='param_name' ng-model='param.name'  placeholder='Parameter Value' ng-disabled='!param.editable'/><br/>
+              <span ng-switch on='param.type'>
+                <span ng-switch-when='String'>
+                  <input placeholder='Parameter Value' type='text' ng-required='param.require' ng-model='param.value'/><span ng-if='param.require' style='color:red'>*</span>
+                </span>
+                <span ng-switch-when='Array'>
+                  <input placeholder='Parameter Value' type='text' ng-required='param.require' ng-repeat='single in param.value' ng-model='single.value'/><span ng-if='param.require' style='color:red'>*</span>
+                  <span class='icon_button right ' ng-click='addProperty($event,$index)'>+Property</span>
+                </span>
+                <span ng-switch-when='Object' class='object-input'>
+                  <span ng-repeat='single in param.value'>
+                    <input placeholder='Parameter Name' type='text' ng-required='param.require'  ng-model='single.name'/>
+                    <input placeholder='Parameter Value' type='text' ng-required='param.require'  ng-model='single.value'/>
+
+                  </span>
+                  <span class='icon_button right ' ng-click='addProperty($event,$index)'>+Property</span>
+                </span>
+              </span>
+              <div class='clear'></div>
+              
+
+              <!--<span ng-switch on='param.textarea'>
+                <span ng-switch-when='undefined'>
+                  <br/>
+                  <input placeholder='Parameter Value' type='text' ng-required='param.require' ng-model='param.value'/><span ng-if='param.require' style='color:red'>*</span>
+
+                </span>
+                <span ng-switch-when='1'>
+                  <br/>
+                  <textarea  maxlength='128' placeholder='Parameter Value' ng-model='param.value'></textarea>
+                </span>
+              
+              </span>-->
+            </li>
+            <div class='operation-content' ng-if='list.length'>
+              <span class='icon_button ' ng-click='addInput()'>+ input</span>
+              <span class='icon_button ' ng-click='addTextarea()'>+ textarea</span>
+            </div>
+          </ul>
+            
+            <input type='submit' ng-if='list.length' class='icon_button left blue' ng-disabled='myForm_oss.$invalid'/>
+          
+        </form>
+      </div>
+      <div class='canvas'>  
+          <div class="canvas-view">
+              <button class="svg_resizer icon-resize-down " content-tooltip="'增加画布高度'" ng-click='addSvgHeight($event)'>+</button>
+              <button class="svg_resizer icon-resize-up " content-tooltip="'减少画布宽度'" ng-click='delSvgHeight($event)'>-</button>
+              <button class="svg_resizer icon-resize-right " content-tooltip="'增加画布宽度'" ng-click='addSvgWidth($event)'>+</button>
+              <button class="svg_resizer icon-resize-left " content-tooltip="'减少画布宽度'" ng-click='delSvgWidth($event)'>-</button>
+
+
+          </div>    
+      </div>
+    
+  	
+    <div class='json-container' ng-show='showJson'>
+      <div class='background'></div>
+      <div class='json-view'>      
+        <pre>{{formated_json_string}}</pre>
+        <span class='icon_button red right' ng-click='showJson=false'>Return</span>
+      </div>
+     </div>
+   
+
+  	
+  </body>
+  <script src="./js/joint.js"></script>
+  <script src="./js/angular.js"></script>
+  <script src="./js/angular-animate.js"></script>
+  <script src="./js/joint.shapes.devs.js"></script>
+  <!--<script src="http://jsontoyaml.com/js/json2yaml.js"></script>-->
+  <script src="drag_directive.js"></script>
+  <script src="app.js"></script>
