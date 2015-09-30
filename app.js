@@ -1,5 +1,5 @@
 var myModule = angular.module('myModule', ['mydirective']);
-myModule.controller('myController', function($scope, $timeout, $compile) {
+myModule.controller('myController', function($scope, $timeout, $http, $compile) {
 	var timer = $timeout(function() {
 		$scope.showLoad = false;
 	}, 2000);
@@ -7,170 +7,197 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 	$scope.$on('$destroy', function(e) {
 		$timeout.cancel(timer);
 	});
+	var getJson = function(url, callback) {
+			$http({
+				method: 'get',
+				//type: 'json',
+				url: url,
+			}).success(function(data) {
+				var json = (typeof data == 'object') ? data : JSON.parse(data);
+				callback(undefined, json);
 
-	$scope.options = [{
-		title: 'Available Image1',
-		images: [{
-			name: 'test-image1',
-			url: './img/process.png',
-			show_params:['xx1'],
-			params: [{
-				name: 'xxx1',
-				type: 'String',
-				require: 1
-			}, {
-				name: 'xxx2',
-				type: 'String'
-			}]
-		}, {
-			name: 'test-image2',
-			url: './img/process.png',
-			params: [{
-				name: 'xxx1',
-				type: 'String',
-				require: 1
-			}, {
-				name: 'xxx2',
-				type: 'String'
-			}]
-		}, {
-			name: 'test-image3',
-			url: './img/process.png',
-			params: [{
-				name: 'xxx1',
-				type: 'String',
-				require: 1
-			}, {
-				name: 'xxx2',
-				type: 'String'
-			}]
-		}]
-	}, {
-		title: 'web',
-		images: [{
-			name: 'test-image1',
-			url: './img/process.png',
-			description: 'xxx',
-			params: [{
-				name: 'xxx1',
-				type: 'String',
-				require: 1
-			}, {
-				name: 'xxx2',
-				type: 'String'
-			}]
-		}, {
-			name: 'wordpress2',
-			url: './img/process.png',
-			description: 'xxx',
-			show_params:['restart'],
-			params: [{
-				name: 'version',
-				type: 'String'
-			}, {
-				name: 'ports',
-				//textarea:1,
-				type: 'Array',
-				value: []
-			}, {
-				name: 'environment',
-				textarea: 1,
-				type: 'Object',
-				value: []
-			}, {
-				name: 'restart',
-				type: 'String'
-			}, {
-				name: 'labels',
-				//textarea:1,
-				type: 'Object',
-				value: []
 
+			}).error(function(err, status, headers) {
+				callback(err);
+				return;
+			});
+		}
+		/*$scope.options = [{
+			title: 'Available Image1',
+			images: [{
+				name: 'test-image1',
+				url: './img/process.png',
+				show_params:['xx1'],
+				params: [{
+					name: 'xxx1',
+					type: 'String',
+					require: 1
+				}, {
+					name: 'xxx2',
+					type: 'String'
+				}]
+			}, {
+				name: 'test-image2',
+				url: './img/process.png',
+				params: [{
+					name: 'xxx1',
+					type: 'String',
+					require: 1
+				}, {
+					name: 'xxx2',
+					type: 'String'
+				}]
+			}, {
+				name: 'test-image3',
+				url: './img/process.png',
+				params: [{
+					name: 'xxx1',
+					type: 'String',
+					require: 1
+				}, {
+					name: 'xxx2',
+					type: 'String'
+				}]
 			}]
 		}, {
-			name: 'wordpress3',
-			url: './img/process.png',
-			description: 'xxx',
-			show_params:['restart'],
-			params: [{
-				name: 'version',
-				type: 'String'
+			title: 'web',
+			images: [{
+				name: 'test-image1',
+				url: './img/process.png',
+				description: 'xxx',
+				params: [{
+					name: 'xxx1',
+					type: 'String',
+					require: 1
+				}, {
+					name: 'xxx2',
+					type: 'String'
+				}]
 			}, {
-				name: 'ports',
-				//textarea:1,
-				type: 'Array',
-				value: []
-			}, {
-				name: 'environment',
-				textarea: 1,
-				type: 'Array',
-				value: []
-			}, {
-				name: 'restart',
-				type: 'String'
-			}, {
-				name: 'labels',
-				//textarea:1,
-				type: 'Object',
-				value: []
+				name: 'wordpress2',
+				url: './img/process.png',
+				description: 'xxx',
+				show_params:['restart'],
+				params: [{
+					name: 'version',
+					type: 'String'
+				}, {
+					name: 'ports',
+					//textarea:1,
+					type: 'Array',
+					value: []
+				}, {
+					name: 'environment',
+					textarea: 1,
+					type: 'Object',
+					value: []
+				}, {
+					name: 'restart',
+					type: 'String'
+				}, {
+					name: 'labels',
+					//textarea:1,
+					type: 'Object',
+					value: []
 
-			}]
-		}]
-	}, {
-		title: 'db',
-		images: [{
-			name: 'mysql',
-			url: './img/process.png',
-			params: [{
-				name: 'environment',
-				//textarea:1,
-				type: 'Object',
-				value: []
+				}]
 			}, {
-				name: 'restart',
-				type: 'String'
-			}, {
-				name: 'labels',
-				//textarea:1,
-				type: 'Object',
-				value: []
-			}]
-		}, {
-			name: 'nosql',
-			url: './img/process.png',
-			params: [{
-				name: 'environment',
-				//textarea:1,
-				type: 'Object',
-				value: []
-			}, {
-				name: 'restart',
-				type: 'String'
-			}, {
-				name: 'labels',
-				//textarea:1,
-				type: 'Object',
-				value: []
+				name: 'wordpress3',
+				url: './img/process.png',
+				description: 'xxx',
+				show_params:['restart'],
+				params: [{
+					name: 'version',
+					type: 'String'
+				}, {
+					name: 'ports',
+					//textarea:1,
+					type: 'Array',
+					value: []
+				}, {
+					name: 'environment',
+					textarea: 1,
+					type: 'Array',
+					value: []
+				}, {
+					name: 'restart',
+					type: 'String'
+				}, {
+					name: 'labels',
+					//textarea:1,
+					type: 'Object',
+					value: []
+
+				}]
 			}]
 		}, {
-			name: 'Redis',
-			url: './img/process.png',
-			params: [{
-				name: 'environment',
-				//textarea:1,
-				type: 'Object',
-				value: []
+			title: 'db',
+			images: [{
+				name: 'mysql',
+				url: './img/process.png',
+				params: [{
+					name: 'environment',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}, {
+					name: 'restart',
+					type: 'String'
+				}, {
+					name: 'labels',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}]
 			}, {
-				name: 'restart',
-				type: 'String'
+				name: 'nosql',
+				url: './img/process.png',
+				params: [{
+					name: 'environment',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}, {
+					name: 'restart',
+					type: 'String'
+				}, {
+					name: 'labels',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}]
 			}, {
-				name: 'labels',
-				//textarea:1,
-				type: 'Object',
-				value: []
+				name: 'Redis',
+				url: './img/process.png',
+				params: [{
+					name: 'environment',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}, {
+					name: 'restart',
+					type: 'String'
+				}, {
+					name: 'labels',
+					//textarea:1,
+					type: 'Object',
+					value: []
+				}]
 			}]
-		}]
-	}]
+		}]*/
+	$scope.options = [];
+	getJson('./test.json', function(err, json) {
+		if (err) {
+			throw new Error(err);
+		}
+		console.log(json);
+		if (!(json instanceof Array)) json = [json];
+		$scope.options = json;
+		//$scope.$apply();
+
+
+	});
+
 	var all_json = [];
 	var graph = new joint.dia.Graph;
 
@@ -239,6 +266,18 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 
 		return p;
 	}
+	var removeStandardProcess = function(_id) {
+		var cell = graph.getCell(_id);
+		cell.remove();
+	}
+	var existId = function(id, obj_array) {
+		for (var i = 0; i < obj_array.length; i++) {
+			if (obj_array[i].id == id) {
+				return i;
+			}
+		}
+		return;
+	}
 
 
 	//var process_1 = createStandardProcess(600, 300, 'createInstance');
@@ -264,22 +303,15 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 			$(this).on('mouseup', function() {
 				if ((e.offsetY == oldY) && (e.offsetX == oldX)) {
 					$scope.$emit('changeConfigSvg_' + last_Svg);
-					last_Svg = (last_Svg+1)%10;
-					var existId = function(id, obj_array) {
-						for (var i = 0; i < obj_array.length; i++) {
-							if (obj_array[i].id == id) {
-								return i;
-							}
-						}
-						return;
-					}
+					last_Svg = (last_Svg + 1) % 10;
+
 					var list_id = existId(new_cell.id, all_json);
 					//current_SVG_count=list_id;
 					if (!isNaN(list_id)) {
 						$scope.list_title = all_json[list_id].name;
 						$scope.list = all_json[list_id].params;
 					} else {
-						
+
 						var temp = $scope.options[title_id].images[index].params;
 						var array = [];
 						for (var x = 0; x < temp.length; x++) {
@@ -306,34 +338,34 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 							if (_new[i].name == 'version') {
 								var pos = i;
 								//break;
-							}else if(_new[i].name == 'ports'){
-								var pos_1=i;
-							}else if(_new[i].name == 'restart'){
-								var pos_2=i;
+							} else if (_new[i].name == 'ports') {
+								var pos_1 = i;
+							} else if (_new[i].name == 'restart') {
+								var pos_2 = i;
 							}
 						}
 						if (typeof pos != 'undefined') {
 							if (_new[pos].value != _old[pos].value) {
-								var value=_new[pos].value == '' ? 'latest' : _new[pos].value			
+								var value = _new[pos].value == '' ? 'latest' : _new[pos].value
 								$("g[model-id='" + new_cell.id + "'] .version_label").text(value);
 								//$scope.version_array.push(_new[pos].value==''?'latest':_new[pos].value);
 							}
 						}
 						if (typeof pos_1 != 'undefined') {
 							if (_new[pos_1].value != _old[pos_1].value) {
-								var value_1='port：';
-								if(_new[pos_1].value instanceof Array){
+								var value_1 = 'port：';
+								if (_new[pos_1].value instanceof Array) {
 
-									for(var i=0;i<_new[pos_1].value.length;i++){
-										value_1+=(_new[pos_1].value[i].value+' ');
-										value_1+='...';
+									for (var i = 0; i < _new[pos_1].value.length; i++) {
+										value_1 += (_new[pos_1].value[i].value + ' ');
+										value_1 += '...';
 										break;
 									}
-									if(_new[pos_1].value.length==0){
-										value_1+='80';
+									if (_new[pos_1].value.length == 0) {
+										value_1 += '80';
 									}
-								}else{
-									value_1+=_new[pos_1].value;
+								} else {
+									value_1 += _new[pos_1].value;
 								}
 								//var value_1=(_new[pos_1].value instanceof Array?_new[pos_1].value.join(','):_new[pos_1].value);			
 								$("g[model-id='" + new_cell.id + "'] .sub_label1").text(value_1);
@@ -341,15 +373,15 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 							}
 						}
 						if (typeof pos_2 != 'undefined') {
-							var value_2='restart：';
+							var value_2 = 'restart：';
 							if (_new[pos_2].value != _old[pos_2].value) {
-								 value_2+=(_new[pos_2].value == '' ? 'default' : _new[pos_2].value);			
+								value_2 += (_new[pos_2].value == '' ? 'default' : _new[pos_2].value);
 								$("g[model-id='" + new_cell.id + "'] .sub_label2").text(value_2);
 								//$scope.version_array.push(_new[pos].value==''?'latest':_new[pos].value);
 							}
 						}
 					}, true);
-					$scope.$on('changeConfigSvg_'+last_Svg, function() {
+					$scope.$on('changeConfigSvg_' + last_Svg, function() {
 						my_watch();
 					});
 					//});
@@ -360,8 +392,18 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 				}
 
 			});
+		});
+		$("g[model-id='" + new_cell.id + "'] .svg_delete_icon").on('mousedown', function(e) {
+			e.stopPropagation();
+			console.log('delete');
+			var list_id = existId(new_cell.id, all_json);
+			if (!isNaN(list_id)) {
+				all_json.splice(list_id, 1);
+
+			}
 
 
+			removeStandardProcess(new_cell.id);
 		});
 
 
@@ -423,7 +465,8 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 				if (validateCoupled(source.id, graph_obj) && validateCoupled(target.id, graph_obj)) {
 					//var source_item = cellIdExist(source.id, item_array);
 					//var target_item = cellIdExist(target.id, item_array);
-					var source_item, target_item;
+					var source_item = undefined,
+						target_item = undefined;
 					for (var k = 0; k < item_array.length; k++) {
 						if (item_array[k].getId() == source.id) {
 							source_item = item_array[k];
@@ -654,6 +697,4 @@ myModule.controller('myController', function($scope, $timeout, $compile) {
 
 		}
 	}
-
-
 });

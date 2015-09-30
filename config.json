@@ -1,0 +1,16 @@
+[{
+	"title": "Avaliabl_1",
+	"items": [{
+		"name":"item_1",
+		"url" :"./img/process.png",
+		"plugIns":[{
+			"id":"showBizProperty",
+			"container":"",
+			"trigger":"hover",
+			"template":"<div class=''></div>",
+			"displayField":""
+			}],
+
+
+	}],
+}]

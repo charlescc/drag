@@ -1,0 +1,166 @@
+
+
+
+[{
+		"title": "Available Image1",
+		"images": [{
+			"name": "test-image1",
+			"url": "./img/process.png",
+			"show_params":["xx1"],
+			"params": [{
+				"name": "xxx1",
+				"type": "String",
+				"require": 1
+			}, {
+				"name": "xxx2",
+				"type": "String"
+			}]
+		}, {
+			"name": "test-image2",
+			"url": "./img/process.png",
+			"params": [{
+				"name": "xxx1",
+				"type": "String",
+				"require": 1
+			}, {
+				"name": "xxx2",
+				"type": "String"
+			}]
+		}, {
+			"name": "test-image3",
+			"url": "./img/process.png",
+			"params": [{
+				"name": "xxx1",
+				"type": "String",
+				"require": 1
+			}, {
+				"name": "xxx2",
+				"type": "String"
+			}]
+		}]
+	}, {
+		"title": "web",
+		"images": [{
+			"name": "test-image1",
+			"url": "./img/process.png",
+			"description": "xxx",
+			"params": [{
+				"name": "xxx1",
+				"type": "String",
+				"require": 1
+			}, {
+				"name": "xxx2",
+				"type": "String"
+			}]
+		}, {
+			"name": "wordpress2",
+			"url": "./img/process.png",
+			"description": "xxx",
+			"show_params":["restart"],
+			"params": [{
+				"name": "version",
+				"type": "String"
+			}, {
+				"name": "ports",
+				
+				"type": "Array",
+				"value": []
+			}, {
+				"name": "environment",
+				"textarea": 1,
+				"type": "Object",
+				"value": []
+			}, {
+				"name": "restart",
+				"type": "String"
+			}, {
+				"name": "labels",
+				
+				"type": "Object",
+				"value": []
+
+			}]
+		}, {
+			"name": "wordpress3",
+			"url": "./img/process.png",
+			"description": "xxx",
+			"show_params":["restart"],
+			"params": [{
+				"name": "version",
+				"type": "String"
+			}, {
+				"name": "ports",
+				
+				"type": "Array",
+				"value": []
+			}, {
+				"name": "environment",
+				"textarea": 1,
+				"type": "Array",
+				"value": []
+			}, {
+				"name": "restart",
+				"type": "String"
+			}, {
+				"name": "labels",
+				
+				"type": "Object",
+				"value": []
+
+			}]
+		}]
+	}, {
+		"title": "db",
+		"images": [{
+			"name": "mysql",
+			"url": "./img/process.png",
+			"params": [{
+				"name": "environment",
+				
+				"type": "Object",
+				"value": []
+			}, {
+				"name": "restart",
+				"type": "String"
+			}, {
+				"name": "labels",
+				
+				"type": "Object",
+				"value": []
+			}]
+		}, {
+			"name": "nosql",
+			"url": "./img/process.png",
+			"params": [{
+				"name": "environment",
+				
+				"type": "Object",
+				"value": []
+			}, {
+				"name": "restart",
+				"type": "String"
+			}, {
+				"name": "labels",
+				
+				"type": "Object",
+				"value": []
+			}]
+		}, {
+			"name": "Redis",
+			"url": "./img/process.png",
+			"params": [{
+				"name": "environment",
+				
+				"type": "Object",
+				"value": []
+			}, {
+				"name": "restart",
+				"type": "String"
+			}, {
+				"name": "labels",
+				
+				"type": "Object",
+				"value": []
+			}]
+		}]
+	}]
